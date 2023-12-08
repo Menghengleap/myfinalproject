@@ -287,16 +287,14 @@ return element;
 
 // Function 17: toggleComments
 function toggleComments(event, postId){
-  if (!event || !postId){
-      return undefined;
-  }
-  event.target.listener = true;
-  let section  = toggleCommentSection(postId);
-  let button = toggleCommentButton(postId);
-  return [section, button];
+if (!event || !postId){
+    return undefined;
 }
-
-
+event.target.listener = true;
+let section  = toggleCommentSection(postId);
+let button = toggleCommentButton(postId);
+return [section, button];
+}
 
 // Function 18: refreshPosts
 const refreshPosts = async (posts) => {
