@@ -1,6 +1,6 @@
 // main.js
 
-// Function 1: createElemWithTexts
+// Function 1: createElemWithText
 function createElemWithText(elementType = 'p', textContent = '', className = '') {
     const element = document.createElement(elementType);
     element.textContent = textContent;
