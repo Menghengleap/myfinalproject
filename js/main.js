@@ -276,7 +276,7 @@ async function createPosts(postsData) {
 }
 
 
-// Function 16:
+// Function 16: displayPosts
 const displayPosts = async (posts) => {
 let myMain = document.querySelector("main");
 let element = (posts) ? await createPosts(posts) : document.querySelector("main p");
@@ -285,18 +285,20 @@ return element;
 }
 
 
-// Function 17:
+// Function 17: toggleComments
 function toggleComments(event, postId){
-if (!event || !postId){
-    return undefined;
-}
-event.target.listener = true;
-let section  = toggleCommentSection(postId);
-let button = toggleCommentButton(postId);
-return [section, button];
+  if (!event || !postId){
+      return undefined;
+  }
+  event.target.listener = true;
+  let section  = toggleCommentSection(postId);
+  let button = toggleCommentButton(postId);
+  return [section, button];
 }
 
-// Function 18:
+
+
+// Function 18: refreshPosts
 const refreshPosts = async (posts) => {
 if (!posts){
     return undefined;
