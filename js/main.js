@@ -25,20 +25,19 @@ function createSelectOptions(usersData) {
 }
 
 /// Function 3: toggleCommentSection
+
 function toggleCommentSection(postId) {
+  // Return undefined if postId parameter is not provided
   if (!postId) {
-    console.warn('postId parameter not provided. Returning undefined.');
-    return undefined;
+      console.warn('postId parameter not provided. Returning undefined.');
+      return undefined;
+  }
+  const section = document.querySelector(`section[data-post-id="${postId}"]`);
+  if (section) {
+      section.classList.toggle('hide');
   }
 
-  const section = document.querySelector(`[data-post-id="${postId}"]`);
-  
-  if (!section) {
-    console.warn(`No section found for postId: ${postId}. Returning null.`);
-    return null;
-  }
 
-  section.classList.toggle('hide');
   return section;
 }
 
@@ -287,13 +286,13 @@ return element;
 
 // Function 17: toggleComments
 function toggleComments(event, postId){
-if (!event || !postId){
-    return undefined;
-}
-event.target.listener = true;
-let section  = toggleCommentSection(postId);
-let button = toggleCommentButton(postId);
-return [section, button];
+  if (!event || !postId){
+      return undefined;
+  }
+  event.target.listener = true;
+  let section  = toggleCommentSection(postId);
+  let button = toggleCommentButton(postId);
+  return [section, button];
 }
 
 // Function 18: refreshPosts
