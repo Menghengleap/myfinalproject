@@ -1,5 +1,5 @@
 // main.js
-
+//
 // Function 1: createElemWithText
 function createElemWithText(elementType = 'p', textContent = '', className = '') {
   const element = document.createElement(elementType);
@@ -7,7 +7,6 @@ function createElemWithText(elementType = 'p', textContent = '', className = '')
   if (className) {
     element.className = className;
   }
-  // Set other desired attributes here if needed
   return element;
 }
 
@@ -25,7 +24,6 @@ function createSelectOptions(usersData) {
 }
 
 /// Function 3: toggleCommentSection
-
 function toggleCommentSection(postId) {
   // Return undefined if postId parameter is not provided
   if (!postId) {
@@ -36,8 +34,6 @@ function toggleCommentSection(postId) {
   if (section) {
       section.classList.toggle('hide');
   }
-
-
   return section;
 }
 
@@ -48,14 +44,11 @@ function toggleCommentButton(postId) {
     console.warn('postId parameter not provided. Returning undefined.');
     return undefined;
   }
-
   const button = document.querySelector(`[data-post-id="${postId}"]`);
-
   if (!button) {
     console.warn(`No button found for postId: ${postId}. Returning null.`);
     return null;
   }
-
   button.textContent = (button.textContent === 'Show Comments') ? 'Hide Comments' : 'Show Comments';
   return button;
 }
@@ -66,17 +59,13 @@ function deleteChildElements(parentElement) {
     console.warn('Invalid or missing parentElement. Returning undefined.');
     return undefined;
   }
-
   let child = parentElement.lastElementChild;
-
   while (child) {
     parentElement.removeChild(child);
     child = parentElement.lastElementChild;
   }
-
   return parentElement;
 }
-
 
 // Function 6: addButtonListeners
 function addButtonListeners() {
@@ -136,18 +125,13 @@ function populateSelectMenu(usersData) {
     console.warn('usersData parameter not provided. Returning undefined.');
     return undefined;
   }
-
   const selectMenu = document.getElementById('selectMenu');
-
   if (!selectMenu) {
     console.warn('Select menu element not found. Make sure your HTML contains an element with id "selectMenu".');
     return undefined;
   }
-
   const options = createSelectOptions(usersData);
-
   options.forEach(option => selectMenu.appendChild(option));
-
   return selectMenu;
 }
 
@@ -170,7 +154,6 @@ async function getUserPosts(userId) {
     console.warn('userId parameter not provided. Returning undefined.');
     return undefined;
   }
-
   try {
     const response = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`);
     const postsData = await response.json();
@@ -188,7 +171,6 @@ async function getUser(userId) {
     console.warn('userId parameter not provided. Returning undefined.');
     return undefined;
   }
-
   try {
     const response = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`);
     const userData = await response.json();
@@ -206,7 +188,6 @@ async function getPostComments(postId) {
     console.warn('postId parameter not provided. Returning undefined.');
     return undefined;
   }
-
   try {
     const response = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`);
     const commentsData = await response.json();
@@ -217,25 +198,20 @@ async function getPostComments(postId) {
   }
 }
 
-
 // Function 14: displayComments
 async function displayComments(postId) {
   if (!postId) {
     console.warn('postId parameter not provided. Returning undefined.');
     return undefined;
   }
-
   const section = document.createElement('section');
   section.dataset.postId = postId;
   section.classList.add('comments', 'hide');
-
   const comments = await getPostComments(postId);
   const fragment = createComments(comments);
-
   section.appendChild(fragment);
   return section;
 }
-
 
 // Function 15: createPosts
 async function createPosts(postsData) {
@@ -243,9 +219,7 @@ async function createPosts(postsData) {
     console.warn('postsData parameter not provided. Returning undefined.');
     return undefined;
   }
-
   const fragment = document.createDocumentFragment();
-
   for (const post of postsData) {
     const article = document.createElement('article');
     const h2 = createElemWithText('h2', post.title);
@@ -257,23 +231,18 @@ async function createPosts(postsData) {
     const button = document.createElement('button');
     button.textContent = 'Show Comments';
     button.dataset.postId = post.id;
-
     article.appendChild(h2);
     article.appendChild(p1);
     article.appendChild(p2);
     article.appendChild(p3);
     article.appendChild(p4);
     article.appendChild(button);
-
     const section = await displayComments(post.id);
     article.appendChild(section);
-
     fragment.appendChild(article);
   }
-
   return fragment;
 }
-
 
 // Function 16: displayPosts
 const displayPosts = async (posts) => {
@@ -282,7 +251,6 @@ let element = (posts) ? await createPosts(posts) : document.querySelector("main 
 myMain.append(element);
 return element;
 }
-
 
 // Function 17: toggleComments
 function toggleComments(event, postId) {
@@ -294,8 +262,6 @@ function toggleComments(event, postId) {
   let button = toggleCommentButton(postId);
   return [section, button];
 }
-
-
 
 // Function 18: refreshPosts
 const refreshPosts = async (posts) => {
@@ -309,7 +275,6 @@ let button = addButtonListeners();
 return [buttons, myMain, fragment, button];
 }
 
-
 // Function 19: selectMenuChangeEventHandler
 const selectMenuChangeEventHandler = async (e) => {
   // Return undefined if the change event parameter is not provided
@@ -317,7 +282,6 @@ const selectMenuChangeEventHandler = async (e) => {
     console.warn('Change event parameter not provided. Returning undefined.');
     return undefined;
   }
-
   try {
     let userId = e?.target?.value || 1;
     let posts = await getUserPosts(userId);
@@ -328,19 +292,6 @@ const selectMenuChangeEventHandler = async (e) => {
     return null;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Function 20: initPage
 async function initPage() {
@@ -354,5 +305,4 @@ async function initApp() {
   const [users, selectMenu] = await initPage();
   selectMenu.addEventListener('change', selectMenuChangeEventHandler);
 }
-
 document.addEventListener('DOMContentLoaded', initApp);
