@@ -285,15 +285,17 @@ return element;
 
 
 // Function 17: toggleComments
-function toggleComments(event, postId){
-  if (!event || !postId){
+function toggleComments(event, postId) {
+  if (!event || !postId) {
       return undefined;
   }
   event.target.listener = true;
-  let section  = toggleCommentSection(postId);
+  let section = toggleCommentSection(postId);
   let button = toggleCommentButton(postId);
   return [section, button];
 }
+
+
 
 // Function 18: refreshPosts
 const refreshPosts = async (posts) => {
@@ -310,16 +312,28 @@ return [buttons, myMain, fragment, button];
 
 // Function 19: selectMenuChangeEventHandler
 const selectMenuChangeEventHandler = async (e) => {
-try {
+  // Return undefined if the change event parameter is not provided
+  if (!e) {
+    console.warn('Change event parameter not provided. Returning undefined.');
+    return undefined;
+  }
+
+  try {
     let userId = e?.target?.value || 1;
     let posts = await getUserPosts(userId);
     let refreshPostsArray = await refreshPosts(posts);
     return [userId, posts, refreshPostsArray];
-} catch (error) {
+  } catch (error) {
     console.error("An error occurred in selectMenuChangeEventHandler: ", error);
     return null;
+  }
 }
-}
+
+
+
+
+
+
 
 
 
